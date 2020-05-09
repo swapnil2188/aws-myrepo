@@ -9,5 +9,5 @@ First, Install Pipenv.Then:
 
 ```
 pipenv install
-pipenv run "python hello_world.py"
+pipenv run python files/hello-world.py 
 ```  
