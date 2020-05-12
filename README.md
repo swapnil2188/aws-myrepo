@@ -26,7 +26,8 @@ swap2188 uses the configuration file created by the AWS cli. e.g.
 `pipenv run python scripts/list-ec2-instances.py`
 
 # Help
-```pipenv run python scripts/aws-ec2-instances-click.py --help
+```
+pipenv run python scripts/aws-ec2-instances-click.py --help
 Usage: aws-ec2-instances-click.py [OPTIONS]
 
   List all EC2 Instances
