@@ -5,16 +5,29 @@ session = boto3.Session(profile_name='swap2188')
 ec2 = session.resource('ec2')
 
 @click.command()
-def list_instances():
-    "List all EC2 Instances"
-    for i in ec2.instances.all():
-        print (', '.join((
-            i.id,
-            i.instance_type,
-            i.placement['AvailabilityZone'],
-            i.state['Name'],
-            i.public_dns_name)))
-    return        
+@click.option('--project', default=None, help="Only instances for Project (tag Project:<name>)")
+
+def list_instances(project):
+	"List all EC2 Instances"
+	instances = []
+
+	if project:
+		filters = [{'Name':'tag:Project', 'Values':[project]}]
+		instances = ec2.instances.filter(Filters=filters)
+	else:
+		instances = ec2.instances.all()
+
+	for i in instances:
+		tags = { t['Key']: t['Value'] for t in i.tags or [] }
+		print(', '.join((
+			i.id,
+			i.instance_type,
+			i.placement['AvailabilityZone'],
+			i.state['Name'],
+			i.public_dns_name,
+			tags.get('Project', '<no project>')
+			)))
+	return
 
 if __name__ == '__main__':
     list_instances()

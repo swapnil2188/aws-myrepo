@@ -9,10 +9,10 @@ First, Install Pipenv.Then:
 
 ```
 pipenv install
-pipenv run python files/hello-world.py 
+pipenv run python files/hello-world.py
 ```  
 
-# AWS Boto3 
+# AWS Boto3
 
 # About
 This Project is for self-learning, and uses boto3 to manage AWS EC2 instance snapshots.
@@ -23,7 +23,16 @@ swap2188 uses the configuration file created by the AWS cli. e.g.
 `aws configure --profile swap2188`
 
 # Running
-`pipenv run python scripts/list-ec2-instances.py`
+`pipenv run python scripts/list-ec2-instances.py <command> <--project=PROJECT>`
+
+*command* is list, start, or stop
+*project* is optional
+
+```Examples -
+pipenv run python scripts/aws-ec2-instances-start-stop-click.py list --project=acloudguru-python
+pipenv run python scripts/aws-ec2-instances-start-stop-click.py stop --project=acloudguru-python
+pipenv run python scripts/aws-ec2-instances-start-stop-click.py start --project=acloudguru-python
+```
 
 # Help
 ```
