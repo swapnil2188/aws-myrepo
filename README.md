@@ -26,15 +26,15 @@ swap2188 uses the configuration file created by the AWS cli. e.g.
 `Script aws-ec2-instances-start-stop-click.py `
 `pipenv run python scripts/list-ec2-instances.py <command> <--project=PROJECT>`
 
-*command* is list, start, or stop
-*project* is optional
+**command** is list, start, or stop
+**project** is optional
 
 `Script swap.py `
 `pipenv run python scripts/swap.py <command> <subcommand> <--project=PROJECT>`
 
-*command* is instances, volumes or snapshots
-*subcommand* depends on command
-*project* is optional
+**command** is instances, volumes or snapshots
+**subcommand** depends on command
+**project** is optional
 
 ```
 Examples - Script aws-ec2-instances-start-stop-click.py
