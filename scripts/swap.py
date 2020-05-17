@@ -42,6 +42,7 @@ def list_snapshots(project):
                     s.progress,                 #snapshot progress
                     s.start_time.strftime("%c") #snapshot starttime formatted
                 )))
+                
     return
 
 @cli.group('volumes')                           #Defining Volumes CLI Group

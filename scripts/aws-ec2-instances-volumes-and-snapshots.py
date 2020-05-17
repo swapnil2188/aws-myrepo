@@ -16,6 +16,11 @@ def filter_instances(project):    #Define a Filter Instances Function - Gives li
 
     return instances
 
+#Function to check for Pending Snapshot
+def has_pending_snapshot(volume):
+    snapshots = list(volume.snapshots.all())
+    return snapshots and snapshots[0].state == 'pending'
+
 @click.group()                                  #Main group
 def cli():                                      #Function for Sub group-CLI
     """Script manages Instances and Snapshots"""
@@ -26,8 +31,11 @@ def snapshots():
 
 @snapshots.command('list')
 @click.option('--project', help="Only snapshots for Project (tag Project:<name>)")
+#This Option for list_all will list every snapshot for every volume if specify it
+@click.option('--all', 'list_all', default=False, is_flag=True,
+        help="List all snapshots for each volume not just the recent one")
 
-def list_snapshots(project):
+def list_snapshots(project, list_all):
     "List EC2 Snapshots"
 
     instances = filter_instances(project)
@@ -43,6 +51,10 @@ def list_snapshots(project):
                     s.progress,                 #snapshot progress
                     s.start_time.strftime("%c") #snapshot starttime formatted
                 )))
+#Only show recent Snapshot when State is completed and not list_all
+#Hence break when both conditions satisfied else print all of them
+                if s.state == 'completed' and not list_all: break
+
     return
 
 @cli.group('volumes')                           #Defining Volumes CLI Group
@@ -87,6 +99,10 @@ def create_snapshots(project):
         i.wait_until_stopped()                 #Boto3 Check-wait until instances are stopped
 
         for v in i.volumes.all():
+            if has_pending_snapshot(v):
+                print(" Skipping {0}, snapshot already in Progress".format(v.id))
+                continue
+
             print("  Creating snapshot of {0}". format(v.id))
             v.create_snapshot(Description="Created by our Script for snapshots")
 
