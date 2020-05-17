@@ -33,16 +33,18 @@ swap2188 uses the configuration file created by the AWS cli. e.g.
 `pipenv run python scripts/swap.py <command> <subcommand> <--project=PROJECT>`
 
 *command* is instances, volumes or snapshots
-*subcommand* - depends on command
+*subcommand* depends on command
 *project* is optional
 
-```Examples - Script aws-ec2-instances-start-stop-click.py
+```
+Examples - Script aws-ec2-instances-start-stop-click.py
 pipenv run python scripts/aws-ec2-instances-start-stop-click.py list --project=acloudguru-python
 pipenv run python scripts/aws-ec2-instances-start-stop-click.py stop --project=acloudguru-python
 pipenv run python scripts/aws-ec2-instances-start-stop-click.py start --project=acloudguru-python
 ```
 
-```Examples - Script swap.py
+```
+Examples - Script swap.py
 pipenv run python scripts/swap.py instances list
 pipenv run python scripts/swap.py instances stop
 pipenv run python scripts/swap.py instances start
